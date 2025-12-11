@@ -1,0 +1,7 @@
+/* EmployeeList.module.css */
+.grid {
+  display: flex;
+  flex-wrap: wrap; /* Erlaubt Umbruch in neue Zeilen */
+  gap: 24px; /* Schöner Abstand zwischen den Karten */
+  padding-bottom: 40px;
+}

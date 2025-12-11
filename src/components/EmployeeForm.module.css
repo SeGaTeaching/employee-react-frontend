@@ -1,0 +1,89 @@
+.formCard {
+  background: rgba(255, 255, 255, 0.8); /* Milchglas-Effekt */
+  backdrop-filter: blur(12px);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -1px rgba(0, 0, 0, 0.03),
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset; /* Innerer Glanz */
+  margin-bottom: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.formTitle {
+  margin-top: 0;
+  margin-bottom: 25px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.inputGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto; /* Name | Rolle | Buttons */
+  gap: 15px;
+  align-items: center;
+}
+
+/* Auf Handys untereinander */
+@media (max-width: 600px) {
+  .inputGroup { grid-template-columns: 1fr; }
+}
+
+.input {
+  padding: 14px 18px;
+  border: 2px solid transparent;
+  background: #f1f5f9;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.input:focus {
+  outline: none;
+  background: white;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+}
+
+.button {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+}
+
+.cancelButton {
+  background: transparent;
+  color: #64748b;
+  border: 2px solid #cbd5e1;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cancelButton:hover {
+  border-color: #94a3b8;
+  color: #334155;
+  background: #f8fafc;
+}
