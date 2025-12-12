@@ -1,0 +1,86 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  /* Größe & Abstand */
+  padding: 15px 30px;
+  margin-bottom: 40px; /* Abstand zum Inhalt darunter */
+  
+  /* Glassmorphism Look */
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+  
+  /* Sticky: Bleibt beim Scrollen oben */
+  position: sticky;
+  top: 0;
+  z-index: 100; /* Damit es über den Karten schwebt */
+}
+
+.logo {
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: #1f2937;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoIcon {
+  font-size: 1.6rem;
+}
+
+.navLinks {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+/* --- Der normale Link (Übersicht) --- */
+.link {
+  text-decoration: none;
+  color: #6b7280;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.link:hover {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+/* Wenn der Link aktiv ist (wir sind auf der Seite) */
+.active {
+  color: #6366f1; /* Indigo */
+  background: #eef2ff;
+  font-weight: 600;
+}
+
+/* --- Der Call-to-Action Link (+ Neu) --- */
+.cta {
+  text-decoration: none;
+  background-color: #1f2937; /* Dunkel */
+  color: white;
+  padding: 8px 20px;
+  border-radius: 99px; /* Pillen-Form */
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cta:hover {
+  background-color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.activeCta {
+  /* Wenn wir schon auf "Neu" sind, ändern wir den Button leicht, z.B. Ring */
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+  background-color: #4f46e5;
+}

@@ -1,41 +1,33 @@
-import { useEmployees } from './hooks/useEmployees';
-import EmployeeForm from './components/EmployeeForm';
-import EmployeeList from './components/EmployeeList';
-import './App.css'; // WICHTIG: Hier importieren wir das CSS von oben
+import { Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import EmployeeFormPage from "./pages/EmployeeFormPage";
+import EmployeePage from "./pages/EmployeePage";
+import Header from "./pages/partials/Header";
+import "./App.css"; // Unser globales Styling
 
 function App() {
-  const { 
-    employees, 
-    editingEmployee, 
-    isLoading, 
-    error,
-    actions 
-  } = useEmployees();
-
   return (
-    // Hier nutzen wir jetzt die Klasse aus App.css
-    <div className="appContainer"> 
-      <h1 className="mainTitle">Unser Team</h1>
+    <>
+      <Header />
 
-      {error && <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>}
-      
-      <EmployeeForm 
-        onAdd={actions.add}
-        onUpdate={actions.update}
-        editingEmployee={editingEmployee}
-        onCancel={actions.cancelEditing}
-      />
+      <div className="appContainer">
+        <h1 className="mainTitle">Unser Team</h1>
 
-      {isLoading ? (
-        <p style={{ textAlign: 'center', color: '#666' }}>Lade Daten...</p>
-      ) : (
-        <EmployeeList 
-          employees={employees}
-          onEdit={actions.startEditing}
-          onDelete={actions.remove}
-        />
-      )}
-    </div>
+          <Routes>
+            {/* 1. Die Liste */}
+            <Route path="/" element={<HomePage />} />
+
+            {/* 2. Employee */}
+            <Route path="/employees/:id" element={<EmployeePage />} />
+
+            {/* 3. Neu anlegen */}
+            <Route path="/employees/new" element={<EmployeeFormPage />} />
+
+            {/* 4. Bearbeiten (mit dynamischer ID) */}
+            <Route path="/employees/:id/edit" element={<EmployeeFormPage />} />
+          </Routes>
+      </div>
+    </>
   );
 }
 

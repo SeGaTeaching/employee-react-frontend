@@ -13,11 +13,19 @@ async function handleResponse(response) {
   return response.json();
 }
 
+// Alle Employees abfragen
 export async function getAllEmployees() {
   const response = await fetch(API_BASE_URL);
   return handleResponse(response);
 }
 
+// Einzelnen Employee abfragen
+export async function getEmployeeById(id) {
+  const response = await fetch(`${API_BASE_URL}/${id}`)
+  return handleResponse(response);
+}
+
+// Neuen Employee erstellen
 export async function createEmployee(data) {
   const response = await fetch(API_BASE_URL, {
     method: 'POST',
@@ -27,6 +35,7 @@ export async function createEmployee(data) {
   return handleResponse(response);
 }
 
+// Employee aktualisieren
 export async function updateEmployee(id, data) {
   const response = await fetch(`${API_BASE_URL}/${id}`, {
     method: 'PUT',
@@ -36,6 +45,7 @@ export async function updateEmployee(id, data) {
   return handleResponse(response);
 }
 
+// Employee löschen
 export async function deleteEmployee(id) {
   const response = await fetch(`${API_BASE_URL}/${id}`, { 
     method: 'DELETE' 

@@ -23,6 +23,11 @@
   align-items: center;
 }
 
+a {
+  display: block;
+  text-decoration: none;
+}
+
 /* Hover Effekt */
 .card:hover {
   transform: translateY(-4px);
