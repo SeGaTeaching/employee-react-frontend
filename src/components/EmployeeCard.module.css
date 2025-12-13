@@ -1,82 +1,80 @@
 /* EmployeeCard.module.css */
 .card {
-  /* --- DIE MAGIE --- */
-  /* Wachsen: Ja (1), Schrumpfen: Ja (1), Basis-Breite: 320px */
-  flex: 1 1 320px; 
+  flex: 1 1 300px; /* Basisbreite leicht verringert */
   
-  /* Optik (Glassmorphism Light) */
   background: white;
   border-radius: 16px;
   padding: 20px;
   border: 1px solid rgba(0,0,0,0.05);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
 
-  /* Internes Layout der Karte */
+  /* --- DAS SAUBERE GRID LAYOUT --- */
   display: grid;
-  /* Bild | Info | Buttons */
-  /* "auto" beim Bild = Bildgröße, "1fr" bei Info = nimmt Restplatz, "auto" bei Buttons */
+  /* Spalten: Bild (Auto) | Text (Rest) | Buttons (Auto) */
   grid-template-columns: auto 1fr auto; 
-  gap: 20px;
-  align-items: center;
+  /* Zeilen: Name | Rolle | Badge */
+  grid-template-rows: auto auto auto; 
+  column-gap: 20px; /* Abstand zwischen Spalten */
+  row-gap: 4px;     /* Abstand zwischen Zeilen (Name/Rolle) */
+  align-items: center; 
 }
 
-a {
-  display: block;
-  text-decoration: none;
-}
-
-/* Hover Effekt */
-.card:hover {
+/* Hover Effekt nur wenn keine Detailkarte */
+.card:not(.detailCard):hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  border-color: rgba(99, 102, 241, 0.4); /* Indigo Rand beim Hover */
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  border-color: rgba(99, 102, 241, 0.4);
 }
 
-/* --- 1. Das Bild --- */
+/* --- 1. Das Bild (Links) --- */
 .profileImage {
-  width: 70px;
-  height: 70px;
+  /* Bild geht über alle 3 Text-Zeilen (Name, Rolle, Badge) */
+  grid-column: 1;
+  grid-row: 1 / span 3; 
+  
+  width: 80px;
+  height: 80px;
   border-radius: 12px;
   object-fit: cover;
   border: 2px solid white;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* --- 2. Der Text-Bereich (Name, Rolle, Status) --- */
-/* Da wir im JSX keine div um den Text haben, nutzen wir Grid-Positionierung */
-
+/* --- 2. Der Name (Mitte, Zeile 1) --- */
 .name {
   grid-column: 2;
   grid-row: 1;
+  
+  margin: 0;
   font-size: 1.1rem;
   font-weight: 700;
   color: #1f2937;
   line-height: 1.2;
-  align-self: end; /* Optional: Schiebt den Namen etwas tiefer zur Bildmitte hin */
+  align-self: end; /* Text sitzt unten in der Zeile */
 }
 
-.card p { 
+/* --- 3. Die Rolle (Mitte, Zeile 2) --- */
+.role { 
   grid-column: 2;
-  grid-row: 1; 
-  align-self: end; 
+  grid-row: 2; 
   
-  /* HIER ANPASSEN: */
-  /* Wir vergrößern den Abstand von oben, damit es nicht überlappt */
-  margin: 32px 0 0 0; /* Vorher war es ca. 24px -> jetzt mehr Platz */
-  
+  margin: 0; /* Kein Margin Hack mehr nötig! */
   color: #6b7280;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  align-self: start; /* Text sitzt oben in der Zeile */
 }
 
+/* --- 4. Der Badge (Mitte, Zeile 3) --- */
 .badge {
   grid-column: 2;
-  grid-row: 2; /* Zeile 2 */
-  justify-self: start;
+  grid-row: 3;
   
-  margin-top: 8px;
+  justify-self: start;
+  margin-top: 8px; /* Etwas Abstand zur Rolle */
+  
   padding: 4px 10px;
   border-radius: 6px;
   font-size: 0.7rem;
@@ -88,64 +86,83 @@ a {
 .active { background: #dcfce7; color: #166534; }
 .inactive { background: #fee2e2; color: #991b1b; }
 
-/* Anpassen des Grids, damit Name/Rolle/Badge sauber sitzen */
-/* Wir machen ein "Sub-Grid" Verhalten per Hack, da JSX fix ist */
-.card {
-  grid-template-rows: auto auto; /* Zwei Zeilen */
-}
-.profileImage { grid-row: 1 / span 2; } /* Bild geht über beide Zeilen */
-
-/* --- 3. Die Buttons --- */
+/* --- 5. Die Buttons (Rechts) --- */
 .actionButtons {
+  /* Buttons gehen über alle 3 Zeilen */
   grid-column: 3;
-  grid-row: 1 / span 2; /* Buttons rechts vertikal zentriert über alles */
+  grid-row: 1 / span 3;
   
   display: flex;
-  flex-direction: column; /* Übereinander für kompakten Look */
+  flex-direction: column;
   gap: 8px;
 }
 
 .editBtn, .deleteBtn {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px; /* Etwas runder */
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s;
-  font-size: 0; /* Text verstecken */
+  font-size: 0;
 }
 
-/* Icons via CSS (Pfeil/Stift und X) */
 .editBtn::after { content: '✎'; font-size: 1.2rem; color: #3b82f6; }
 .editBtn { background: #eff6ff; }
-.editBtn:hover { background: #dbeafe; transform: scale(1.05); }
+.editBtn:hover { background: #dbeafe; transform: scale(1.1); }
 
-.deleteBtn::after { content: '×'; font-size: 1.4rem; color: #ef4444; }
+.deleteBtn::after { content: '×'; font-size: 1.5rem; color: #ef4444; line-height: 1;}
 .deleteBtn { background: #fef2f2; }
-.deleteBtn:hover { background: #fee2e2; transform: scale(1.05); }
+.deleteBtn:hover { background: #fee2e2; transform: scale(1.1); }
 
 
-/* --- MOBILE OPTIMIERUNG --- */
-/* Wenn der Bildschirm so klein ist, dass selbst eine Karte kaum Platz hat */
-@media (max-width: 480px) {
+/* --- DETAIL ANSICHT (Überschreibungen) --- */
+.detailCard {
+  /* Layout Reset: Zentriert */
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px;
+  cursor: default !important;
+  
+  /* Grid anpassen für Detail: Mehr Platz */
+  column-gap: 40px;
+  row-gap: 10px;
+}
+
+.detailImage {
+  width: 140px;
+  height: 140px;
+  border-width: 4px;
+}
+
+.detailName {
+  font-size: 2.5rem; /* Viel größerer Name */
+  margin-bottom: 5px;
+}
+
+/* Mobile Anpassung */
+@media (max-width: 500px) {
   .card {
-    /* Auf Handy untereinander stapeln */
-    grid-template-columns: 1fr auto; 
+    grid-template-columns: 1fr auto; /* Bild+Text | Buttons */
     grid-template-rows: auto;
-    text-align: left;
+    row-gap: 10px;
   }
   
-  .profileImage { grid-row: 1; grid-column: 1; margin-bottom: 10px;}
-  .name { grid-row: 2; grid-column: 1; }
-  .card p { grid-row: 3; grid-column: 1; margin: 0;}
-  .badge { grid-row: 4; grid-column: 1; }
+  .profileImage { 
+      grid-column: 1; grid-row: 1; 
+      width: 60px; height: 60px; 
+      margin-bottom: 10px;
+  }
+  .name { grid-column: 1; grid-row: 2; }
+  .role { grid-column: 1; grid-row: 3; }
+  .badge { grid-column: 1; grid-row: 4; }
   
   .actionButtons {
     grid-column: 2;
     grid-row: 1 / span 4;
-    justify-content: center;
+    align-self: start;
   }
 }

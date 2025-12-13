@@ -21,6 +21,7 @@ export default function EmployeePage() {
           {...employee}
           onDelete={actions.remove}
           onEdit={(id) => navigate(`/employees/${id}/edit`)}
+          isDetail={true}
         />
 
     </div>
