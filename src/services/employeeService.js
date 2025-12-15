@@ -1,6 +1,6 @@
 // src/services/employeeService.js
 
-const API_BASE_URL = "http://127.0.0.1:8000/employees";
+const API_BASE_URL = import.meta.env.VITE_API_URL + '/api/employees';
 
 // Hilfsfunktion für Fehlerbehandlung
 async function handleResponse(response) {
@@ -52,3 +52,5 @@ export async function deleteEmployee(id) {
   });
   return handleResponse(response);
 }
+
+console.log(API_BASE_URL)
